@@ -45,6 +45,8 @@ $_['entry_location']         = 'Location';
 $_['entry_shipping']         = 'Requires Shipping';
 $_['entry_manufacturer']     = 'Manufacturer';
 $_['entry_date_available']   = 'Date Available';
+$_['entry_default_selected_span'] = '<span title="Default Selected">Sel.</span>';
+$_['entry_default_selected'] = 'Sel.';
 $_['entry_quantity']         = 'Quantity';
 $_['entry_minimum']          = 'Minimum Quantity';
 $_['entry_stock_status']     = 'Out Of Stock Status';
