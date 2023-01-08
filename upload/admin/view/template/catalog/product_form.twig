@@ -622,7 +622,19 @@
 
 
                                       </select> <input type="hidden" name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][product_option_value_id]" value="{{ product_option_value.product_option_value_id }}"/></td>
-                                    <td class="text-right"><input type="radio" name="product_option[{{ option_row }}][default_selected]" value="{{ product_option_value.product_option_value_id }}" placeholder="{{ entry_default_selected }}" class="form-control"/></td>
+                                    <td class="text-right">
+
+                                        {% if product_option_value.selected %}
+
+                                      <input type="radio" name="product_option[{{ option_row }}][default_selected]" value="{{ product_option_value.product_option_value_id }}" checked="yes" placeholder="{{ entry_default_selected }}" class="form-control"/>
+
+                                        {% else %}
+
+                                      <input type="radio" name="product_option[{{ option_row }}][default_selected]" value="{{ product_option_value.product_option_value_id }}" placeholder="{{ entry_default_selected }}" class="form-control"/>
+
+                                        {% endif %}
+
+                                    </td>
                                     <td class="text-right"><input type="text" name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][quantity]" value="{{ product_option_value.quantity }}" placeholder="{{ entry_quantity }}" class="form-control"/></td>
                                     <td class="text-left"><select name="product_option[{{ option_row }}][product_option_value][{{ option_value_row }}][subtract]" class="form-control">
 
