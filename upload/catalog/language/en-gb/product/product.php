@@ -32,6 +32,7 @@ $_['text_month']               = 'month';
 $_['text_year']                = 'year';
 
 // Entry
+$_['entry_quantity']           = 'Quantity';
 $_['entry_qty']                = 'Qty';
 $_['entry_name']               = 'Your Name';
 $_['entry_review']             = 'Your Review';
