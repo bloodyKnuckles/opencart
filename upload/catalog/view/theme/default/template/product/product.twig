@@ -196,15 +196,6 @@
                 </div>
                 {% endfor %} </div>
             </div>
-<script>
-document.querySelectorAll(`[data-option-value-price]`).forEach(rad => {
-  rad.addEventListener('change', ({target}) => {
-    let quan = Number(document.querySelector('#input-quantity').value)
-    let price = Number(target.dataset.optionValuePrice.replace(/[^0-9.-]+/g,""))
-    document.querySelector('#price-subtotal').innerText = '$' + (quan * price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, })
-  })
-})
-</script>
             {% endif %}
             {% if option.type == 'checkbox' %}
             <div class="form-group{% if option.required %} required {% endif %}">
@@ -298,17 +289,34 @@ document.querySelectorAll(`[data-option-value-price]`).forEach(rad => {
               <br/>
               <button type="button" id="button-cart" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg btn-block">{{ button_cart }}</button>
 <script>
+let price_lowest = ''
+let price_highest = ''
+document.querySelectorAll(`[data-option-value-price]`).forEach(rad => {
+  if ( '' === price_lowest || Number(rad.dataset.optionValuePrice.replace(/[^0-9\.]+/g, '')) < Number(price_lowest.replace(/[^0-9\.]+/g, '')) ) {
+    price_lowest = rad.dataset.optionValuePrice
+  }
+  if ( '' === price_highest || Number(rad.dataset.optionValuePrice.replace(/[^0-9\.]+/g, '')) > Number(price_highest.replace(/[^0-9\.]+/g, '')) ) {
+    price_highest = rad.dataset.optionValuePrice
+  }
+  rad.addEventListener('change', ({target}) => {
+    let quan = Number(document.querySelector('#input-quantity').value)
+    let price = Number(target.dataset.optionValuePrice.replace(/[^0-9.-]+/g,""))
+    document.querySelector('#price-subtotal').innerText = '$' + (quan * price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, })
+  })
+})
 let quan = Number(document.querySelector('#input-quantity').value)
 let option_checked = document.querySelector('input[type="radio"][name^="option"]:checked')
 let price = (option_checked.dataset.optionValuePrice)? Number(option_checked.dataset.optionValuePrice.replace(/[^0-9.-]+/g,"")): 0
-document.querySelector('#price-subtotal').innerText = '$' + (quan * price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, })
-document.querySelector('#quan_label_plural').innerText = (1 < quan)? '{{ quantity_label }}s': '{{ quantity_label }}';
+document.querySelector('#price-subtotal').innerText = (option_checked.dataset.optionValuePrice)
+  ? '$' + (quan * price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, })
+  : price_lowest + ' - ' + price_highest
+document.querySelector('#quan_label_plural').innerText = (1 < quan)? '{{ quantity_label }}s': '{{ quantity_label }}'
 document.querySelector('#input-quantity').addEventListener('change', ({target}) => {
   let quan = Number(target.value)
   let option_checked = document.querySelector('input[type="radio"][name^="option"]:checked')
   let price = (option_checked.dataset.optionValuePrice)? Number(option_checked.dataset.optionValuePrice.replace(/[^0-9.-]+/g,"")): 0
   document.querySelector('#price-subtotal').innerText = '$' + (quan * price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, })
-  document.querySelector('#quan_label_plural').innerText = (1 < quan)? '{{ entry_quantity_label }}s': '{{ entry_quantity_label }}';
+  document.querySelector('#quan_label_plural').innerText = (1 < quan)? '{{ quantity_label }}s': '{{ quantity_label }}'
 })
 </script>
             </div>
