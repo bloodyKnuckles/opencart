@@ -299,11 +299,13 @@ document.querySelectorAll(`[data-option-value-price]`).forEach(rad => {
               <button type="button" id="button-cart" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg btn-block">{{ button_cart }}</button>
 <script>
 let quan = Number(document.querySelector('#input-quantity').value)
-let price = Number(document.querySelector(`[data-option-value-price]:checked`).dataset.optionValuePrice.replace(/[^0-9.-]+/g,""))
+let option_checked = document.querySelector('input[type="radio"][name^="option"]:checked')
+let price = (option_checked.dataset.optionValuePrice)? Number(option_checked.dataset.optionValuePrice.replace(/[^0-9.-]+/g,"")): 0
 document.querySelector('#price-subtotal').innerText = '$' + (quan * price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, })
 document.querySelector('#input-quantity').addEventListener('change', ({target}) => {
   let quan = Number(target.value)
-  let price = Number(document.querySelector('input[type="radio"][name^="option"]:checked').dataset.optionValuePrice.replace(/[^0-9.-]+/g,""))
+  let option_checked = document.querySelector('input[type="radio"][name^="option"]:checked')
+  let price = (option_checked.dataset.optionValuePrice)? Number(option_checked.dataset.optionValuePrice.replace(/[^0-9.-]+/g,"")): 0
   document.querySelector('#price-subtotal').innerText = '$' + (quan * price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, })
   document.querySelector('#quan_label_plural').innerText = (1 < quan)? '{{ entry_quantity_label }}s': '{{ entry_quantity_label }}';
 })
