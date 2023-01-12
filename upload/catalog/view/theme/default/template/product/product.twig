@@ -302,6 +302,7 @@ let quan = Number(document.querySelector('#input-quantity').value)
 let option_checked = document.querySelector('input[type="radio"][name^="option"]:checked')
 let price = (option_checked.dataset.optionValuePrice)? Number(option_checked.dataset.optionValuePrice.replace(/[^0-9.-]+/g,"")): 0
 document.querySelector('#price-subtotal').innerText = '$' + (quan * price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, })
+document.querySelector('#quan_label_plural').innerText = (1 < quan)? '{{ quantity_label }}s': '{{ quantity_label }}';
 document.querySelector('#input-quantity').addEventListener('change', ({target}) => {
   let quan = Number(target.value)
   let option_checked = document.querySelector('input[type="radio"][name^="option"]:checked')
