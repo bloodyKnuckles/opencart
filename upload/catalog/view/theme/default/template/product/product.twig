@@ -287,6 +287,11 @@ document.querySelectorAll(`[data-option-value-price]`).forEach(rad => {
             </div>
             {% endif %}
             <div class="form-group">
+              <div class="form-control-group">
+                <label class="control-label" for="input-quantity">{{ entry_quantity }}: </label>
+                &nbsp;<input type="number" step="1" min="1" style="width: 50px;" name="quantity" value="{{ minimum }}" size="2" id="input-quantity" />
+                &nbsp;<span id="quan_label_plural">{{ quantity_label }}</span>
+              </div>
               <label class="control-label" for="input-quantity">{{ entry_qty }}</label>
               <input type="text" name="quantity" value="{{ minimum }}" size="2" id="input-quantity" class="form-control" />
               <input type="hidden" name="product_id" value="{{ product_id }}" />
@@ -300,6 +305,7 @@ document.querySelector('#input-quantity').addEventListener('change', ({target}) 
   let quan = Number(target.value)
   let price = Number(document.querySelector('input[type="radio"][name^="option"]:checked').dataset.optionValuePrice.replace(/[^0-9.-]+/g,""))
   document.querySelector('#price-subtotal').innerText = '$' + (quan * price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, })
+  document.querySelector('#quan_label_plural').innerText = (1 < quan)? '{{ entry_quantity_label }}s': '{{ entry_quantity_label }}';
 })
 </script>
             </div>
