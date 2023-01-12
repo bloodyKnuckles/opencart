@@ -790,6 +790,14 @@
                         {% endif %} </div>
                       {% set option_row = option_row + 1 %}
                     {% endfor %} </div>
+<script>
+
+document.querySelectorAll(`[name$="[default_selected]"]`).forEach(defsel => {
+  defsel.addEventListener('click', ({target}) => {
+    if ( target.checked ) { target.checked = false }
+  })
+})
+</script>
                 </div>
               </div>
             </div>
