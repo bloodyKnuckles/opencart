@@ -364,6 +364,12 @@ class ControllerProductProduct extends Controller {
 				$data['minimum'] = 1;
 			}
 
+			if ($product_info['quantity_label']) {
+				$data['quantity_label'] = $product_info['quantity_label'];
+			} else {
+				$data['quantity_label'] = 1;
+			}
+
 			$data['review_status'] = $this->config->get('config_review_status');
 
 			if ($this->config->get('config_review_guest') || $this->customer->isLogged()) {
