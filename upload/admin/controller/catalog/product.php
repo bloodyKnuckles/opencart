@@ -746,6 +746,16 @@ class ControllerCatalogProduct extends Controller {
 		} else {
 			$data['minimum'] = 1;
 		}
+		
+
+		if (isset($this->request->post['quantity_label'])) {
+			$data['quantity_label'] = $this->request->post['quantity_label'];
+		} elseif (!empty($product_info)) {
+			$data['quantity_label'] = $product_info['quantity_label'];
+		} else {
+			$data['quantity_label'] = 1;
+		}
+		
 
 		if (isset($this->request->post['subtract'])) {
 			$data['subtract'] = $this->request->post['subtract'];
