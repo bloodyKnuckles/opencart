@@ -757,6 +757,15 @@ class ControllerCatalogProduct extends Controller {
 		}
 		
 
+		if (isset($this->request->post['addtocart_note'])) {
+			$data['addtocart_note'] = $this->request->post['addtocart_note'];
+		} elseif (!empty($product_info)) {
+			$data['addtocart_note'] = $product_info['addtocart_note'];
+		} else {
+			$data['addtocart_note'] = 1;
+		}
+		
+
 		if (isset($this->request->post['subtract'])) {
 			$data['subtract'] = $this->request->post['subtract'];
 		} elseif (!empty($product_info)) {
