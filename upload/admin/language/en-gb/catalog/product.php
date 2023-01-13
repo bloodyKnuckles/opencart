@@ -50,6 +50,7 @@ $_['entry_default_selected'] = 'Sel.';
 $_['entry_quantity']         = 'Quantity';
 $_['entry_minimum']          = 'Minimum Quantity';
 $_['entry_quantity_label']   = 'Quantity Label';
+$_['entry_addtocart_note']   = 'Add to Cart Note';
 $_['entry_stock_status']     = 'Out Of Stock Status';
 $_['entry_price']            = 'Price';
 $_['entry_tax_class']        = 'Tax Class';
