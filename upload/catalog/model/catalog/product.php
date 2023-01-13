@@ -26,6 +26,7 @@ class ModelCatalogProduct extends Model {
 				'location'         => $query->row['location'],
 				'quantity'         => $query->row['quantity'],
 				'quantity_label'   => $query->row['quantity_label'],
+				'addtocart_note'   => $query->row['addtocart_note'],
 				'stock_status'     => $query->row['stock_status'],
 				'image'            => $query->row['image'],
 				'manufacturer_id'  => $query->row['manufacturer_id'],
