@@ -22,7 +22,7 @@
         <div class="{{ class }}"> {% if thumb or images %}
           <ul class="thumbnails">
             {% if thumb %}
-            <li><a class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a></li>
+            <li><a style="border-width: 0;" class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a></li>
             {% endif %}
             {% if images %}
             {% for image in images %}
@@ -135,7 +135,7 @@
           <ul class="list-unstyled">
             {% if not special %}
             <li>
-              <h2 id="price-subtotal">{{ price }}</h2>
+              <h3 id="price-range"></h3>
             </li>
             {% else %}
             <li><span style="text-decoration: line-through;">{{ price }}</span></li>
@@ -283,11 +283,14 @@
                 &nbsp;<input type="number" step="1" min="1" style="width: 50px;" name="quantity" value="{{ minimum }}" size="2" id="input-quantity" />
                 &nbsp;<span id="quan_label_plural">{{ quantity_label }}</span>
               </div>
-              <label class="control-label" for="input-quantity">{{ entry_qty }}</label>
-              <input type="text" name="quantity" value="{{ minimum }}" size="2" id="input-quantity" class="form-control" />
+              <div class="form-control-group">
+                <span style="float: left; margin-top: .25em;">Subtotal:&nbsp;&nbsp; </span>
+                <h3 id="price-subtotal">{{ price }}</h3>
+              </div>
               <input type="hidden" name="product_id" value="{{ product_id }}" />
               <br/>
               <button type="button" id="button-cart" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg btn-block">{{ button_cart }}</button>
+            </div>
 <script>
 let price_lowest = ''
 let price_highest = ''
@@ -307,24 +310,24 @@ document.querySelectorAll(`[data-option-value-price]`).forEach(rad => {
 let quan = Number(document.querySelector('#input-quantity').value)
 let option_checked = document.querySelector('input[type="radio"][name^="option"]:checked')
 let price = (option_checked?.dataset.optionValuePrice)? Number(option_checked.dataset.optionValuePrice.replace(/[^0-9.-]+/g,"")): 0
+document.querySelector('#price-range').innerText = price_lowest + ' - ' + price_highest
+document.querySelector('#quan_label_plural').innerText = (1 < quan)? '{{ quantity_label }}s': '{{ quantity_label }}'
 document.querySelector('#price-subtotal').innerText = (option_checked?.dataset.optionValuePrice)
   ? '$' + (quan * price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, })
-  : price_lowest + ' - ' + price_highest
-document.querySelector('#quan_label_plural').innerText = (1 < quan)? '{{ quantity_label }}s': '{{ quantity_label }}'
+  : '$0.00'
 document.querySelector('#input-quantity').addEventListener('change', ({target}) => {
   let quan = Number(target.value)
   let option_checked = document.querySelector('input[type="radio"][name^="option"]:checked')
   let price = (option_checked?.dataset.optionValuePrice)? Number(option_checked.dataset.optionValuePrice.replace(/[^0-9.-]+/g,"")): 0
-  document.querySelector('#price-subtotal').innerText = '$' + (quan * price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, })
+  if ( 0 < price ) { document.querySelector('#price-subtotal').innerText = '$' + (quan * price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2, }) }
   document.querySelector('#quan_label_plural').innerText = (1 < quan)? '{{ quantity_label }}s': '{{ quantity_label }}'
 })
 </script>
-            </div>
-            {% if minimum > 1 %}
-            <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_minimum }}</div>
             {% if addtocart_note %}
 	    <div class="form-control-group">{{ addtocart_note }}</div>
 	    {% endif %}
+            {% if minimum > 1 %}
+            <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_minimum }}</div>
           {% endif %}</div>
 
           {% if review_status %}
