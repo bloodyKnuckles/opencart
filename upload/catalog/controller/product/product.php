@@ -367,13 +367,13 @@ class ControllerProductProduct extends Controller {
 			if ($product_info['quantity_label']) {
 				$data['quantity_label'] = $product_info['quantity_label'];
 			} else {
-				$data['quantity_label'] = 1;
+				$data['quantity_label'] = '';
 			}
 
 			if ($product_info['addtocart_note']) {
-				$data['addtocart_note'] = $product_info['addtocart_note'];
+				$data['addtocart_note'] = nl2br($product_info['addtocart_note']);
 			} else {
-				$data['addtocart_note'] = 1;
+				$data['addtocart_note'] = '';
 			}
 
 			$data['review_status'] = $this->config->get('config_review_status');
